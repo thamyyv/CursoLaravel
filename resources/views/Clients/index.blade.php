@@ -2,63 +2,43 @@
 @push('css')
 @endpush
 @section('conteudo')
-<form action=''>
-        <div style='text-align:center; margin: 70px'>
-        <h1>Cadastre-se <span class="badge badge-secondary"span></h1>
-        <br><br>
-            <div clas="form-group">
-                <label>
-                    Nome Completo:
-                </label>
-                <input type= 'text' class="form-control shadow-lg bg-black rounded mx-auto col-md-6">
-            </div>
-            <br>
-            <div class="form-group">
-                <label>
-                    E-mail:
-                </label>
-                <input type= 'text' class="form-control shadow-lg bg-black roundedv mx-auto col-md-6">
-            </div>
-            <div class="form-group">
-                <label>
-                    CPF:
-                </label>
-                <input id='cpf' name='cpf' type= 'text' class='cpf-mask form-control shadow-lg bg-black rounded mx-auto col-md-6'>
-            </div>
-            <div class="form-group">
-                <label>
-                    Cidade-UF:
-                </label>
-                <input type= 'text' class="form-control shadow-lg bg-black rounded mx-auto col-md-6">
-            </div>
-            <div clas="form-group">
-                <label>
-                    CEP:
-                </label>
-                <input type= 'text'  class="form-control shadow-lg bg-black rounded mx-auto col-md-6">
-            </div>
-            <br>
-            <div>
-                <label>
-                    Bairro:
-                </label>
-                <input type= 'text'class="form-control shadow-lg bg-black rounded mx-auto col-md-6">
-            </div>
-            <br>
-            <div class="form-group">
-                <label>
-                    Logradouro:
-                </label>
-                <input type= 'text' class="form-control shadow-lg bg-black rounded mx-auto col-md-6">
-            </div>
-            <button class='btn btn-success'>
-                Enviar
-            </button>
-            <button class='btn btn-danger'>
-                Cancelar
-            </button>
-        </div>
-    </form>
+
+<div style='text-align:left; margin: 10px'>
+    <a class='btn btn-info'>
+            Adicionar
+    </a>
+</div>
+ <br>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">CPF</th>
+      <th scope="col">Nome</th>
+      <th scope="col">E-mail</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+        @foreach($clients as $client)
+        <tr>
+            <th scope="row">{{$client->id}}</th>
+            <td>{{$client->cpf}}</td>
+            <td>{{$client->name}}</td>
+            <td>{{$client->email}}</td>
+            <td>
+                <a class='btn btn-success'>
+                    Enviar
+                </a>
+                <a class='btn btn-danger'>
+                    Cancelar
+                </a>
+            </td>
+        </tr>
+        @endforeach
+  </tbody>
+</table>
+
 @endsection
 
 @push('scripts')
