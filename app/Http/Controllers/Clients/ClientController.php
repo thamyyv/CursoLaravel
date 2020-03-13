@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientStoreRequest;
 use Illuminate\Http\Request;
 use App\Models\Client;
 
@@ -28,10 +29,26 @@ class ClientController extends Controller
             'cpf'=> 1234567891,
             'email'=> 'teste2@dominio.com',
             'active_flag'=> false,
+
         ]);
 
-        dd($client);
+        //dd($client);
     }
+
+    public function store(ClientStoreRequest $request){
+
+        $data = $request->all();
+        $clientModel = app(Client::class);
+        $client = $clientModel ->create([
+            'name'=> $data['name'],
+            'cpf'=>preg_replace("/[^A-Za-z0-9]/", "",$data['cpf']),
+            'email'=> $data['email'],
+            'endereco'=> $data['endereco'] ?? null
+
+            ]);
+            return redirect()->route('client.index');
+    }
+
 }
 
 
