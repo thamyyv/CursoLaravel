@@ -2,10 +2,6 @@
 @push('css')
 @endpush
 
-@if(Session::haz('success'))
-    toaster["success"]("<b>SUCESSO: </b><br>
-    {{ Session::get('success') }}");
-
 @section('conteudo')
 
 
@@ -19,9 +15,9 @@
     <thead class="thead-light">
       <tr>
         <th scope="col">#</th>
-        <th scope="col">CPF</th>
         <th scope="col">Nome</th>
         <th scope="col">E-mail</th>
+        <th scope="col">CPF</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
@@ -29,16 +25,21 @@
           @foreach($clients as $client)
           <tr>
               <th scope="row">{{$client->id}}</th>
-              <td>{{$client->cpf}}</td>
               <td>{{$client->name}}</td>
               <td>{{$client->email}}</td>
+              <td>{{$client->cpf}}</td>
               <td>
-                  <a class='btn btn-success'>
-                      Enviar
+                  <a href="{{ route('client.edit',[ $client->id]) }}" class='btn btn-success fa fa-pencil text-white' aria-hidden="true" >
+                    <span class='d-none d-md-inline'>
+                      Editar
+                    </span>
                   </a>
-                  <a class='btn btn-danger'>
-                      Cancelar
-                  </a>
+                  <span data-url="{{route('client.destroy',[ $client->id]) }}" data-idClients='{{ $client->id}}' class="btn btn-danger text-white deleteButton">
+                    <i class="fal fa-trash"></i>
+                    <span class='d-none d-md-inline'>
+                      Deletar
+                    </span>
+                  </span>
               </td>
           </tr>
           @endforeach
@@ -51,4 +52,35 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"></script>
     <script>$(".cpf-mask").mask('000.000.000-00');</script>
+
+    <script>
+      $('.deleteButton').on('click', function (e) {
+        var url = $(this).data('url');
+        var idClient = $(this).data('idClient');
+        $.ajaxSetup({
+            headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+            method: 'DELETE',
+            url: url
+        });
+        $.ajax({
+            data: {
+                'idClient': idClient,
+            },
+            success: function (data) {
+                console.log(data);
+                if (data['status'] ?? '' == 'success') {
+                    if (data['reload'] ?? '') {
+                        location.reload();
+                    }
+                } else {
+                   console.log('error');
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+      });
+
+    </script>
 @endpush

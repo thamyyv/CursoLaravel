@@ -15,31 +15,25 @@
     {{csrf_field() }}
         
         <div style='text-align:center; margin: 70px'>
-            <h1>Cadastre-se <span class="badge badge-secondary"span></h1> <br><br>
+            <h1>Cadastre seu livro <span class="badge badge-secondary"span></h1> <br><br>
             <div clas="form-group">
                 <label>
-                    Nome Completo:
+                    Nome do livro:
                 </label>
                 <input id='name' name='name' type= 'text' class="form-control shadow-lg bg-black rounded mx-auto col-md-6" value="{{old('name')}}">
             </div>
             <br>
             <div class="form-group">
                 <label>
-                    E-mail:
+                    Autor:
                 </label>
-                <input id='email' name='email' type= 'text' class="form-control shadow-lg bg-black roundedv mx-auto col-md-6" value="{{old('email')}}">
+                <input id='write' name='write' type= 'text' class="form-control shadow-lg bg-black roundedv mx-auto col-md-6" value="{{old('write')}}">
             </div>
             <div class="form-group">
                 <label>
-                    CPF:
+                    Paginas:
                 </label>
-                <input id='cpf' name='cpf' type= 'text' class='cpf-mask form-control shadow-lg bg-black rounded mx-auto col-md-6' value="{{old('cpf')}}">
-            </div>
-            <div class="form-group">
-                <label>
-                    Endereço:
-                </label>
-                <input id='endereco' name='endereco' type= 'text' class="form-control shadow-lg bg-black rounded mx-auto col-md-6" value="{{old('endereco')}}">
+                <input id='page_number' name='page_number' type= 'text' class='cpf-mask form-control shadow-lg bg-black rounded mx-auto col-md-6' value="{{old('cpage_number')}}">
             </div>
             <button type='Submit' class='btn btn-success'>
                 Enviar
